@@ -2,7 +2,6 @@
 
 package com.example.quest6_094.view
 
-import com.example.quest6_094.R
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.material3.Button
 import androidx.compose.material3.DividerDefaults.Thickness
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -24,6 +24,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -32,62 +33,65 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.quest6_094.R
 
 @Composable
 fun FormIsian(
     pilihanJK: List<String>,
-    onSubmitButtonClicked: (MutableList<String>) -> Unit,
-    modifier: Modifier = Modifier
-)
-{
+    // onSubmitButtonClicked: (MutableList<String>) -> Unit,
+    // modifier: Modifier = Modifier
+    OnSubmitBtnClick: (MutableList<String>) -> Unit,
+){
     var txtNama by rememberSaveable { mutableStateOf("") }
-    var txtAlamat by rememberSaveable { mutableStateOf("") }
-    var txtGender by rememberSaveable { mutableStateOf("") }
-    var listData:MutableList<String> = mutableListOf(
+    var txtAlamat by remember { mutableStateOf("") }
+    var txtGender by remember { mutableStateOf("") }
+    var listData: MutableList<String> = mutableListOf(
         txtNama,
-        txtAlamat,
-        txtGender)
+        txtGender,
+        txtAlamat
+    )
 
-
-    Scaffold(modifier = Modifier,
+    Scaffold (modifier = Modifier,
         {
             TopAppBar(
-                title = {Text(stringResource(id= R.string.home),
+                title = {Text(stringResource(id = R.string.home),
                     color = Color.White)},
-                colors = TopAppBarDefaults.topAppBarColors(
-                    colorResource(id = R.color.teal_700)
-                )
-            )
-        }){ isiRuang ->
+                colors = TopAppBarDefaults.topAppBarColors
+                    (colorResource(id = R.color.teal_700))
+            ) }
+    ){ isiRuang ->
         Column(modifier = Modifier.padding(isiRuang),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally)
         {
             OutlinedTextField(
-                value = txtNama, //ganti
+                value = txtNama,
                 singleLine = true,
                 modifier = Modifier
                     .padding(top = 20.dp)
                     .width(250.dp),
-                label = { Text(text = "Nama Lengkap") },
+                label = {Text(text = "Nama Lengkap")},
                 onValueChange = {
-                    txtNama = it //ganti
+                    txtNama = it
                 },
             )
-
-
-
             HorizontalDivider(modifier = Modifier
                 .padding(20.dp)
-                .width(250.dp), thickness = Thickness,color =
-                Color.Red)
+                .width(250.dp), thickness = Thickness, color = Color.Red)
             Row{
-                pilihanJK.forEach {
-                        item->
-                    Row(verticalAlignment = Alignment.CenterVertically){
+                pilihanJK.forEach { item->
+                    Row(modifier = Modifier.selectable(
+                        selected = txtGender == item,
+                        onClick = {
+                            txtGender = item
+                        }
+                    ),
+                        verticalAlignment = Alignment.CenterVertically){
                         RadioButton(
-                            selected = false,
-                            onClick = {item}
+                            selected = txtGender == item,
+                            onClick = {
+                                txtGender = item
+                            }
                         )
                         Text(text = item)
                     }
@@ -104,17 +108,16 @@ fun FormIsian(
                 singleLine = true,
                 modifier = Modifier
                     .width(250.dp),
-                label = { Text(text = "Alamat") },
+                label = {Text(text = "Alamat")},
                 onValueChange = {},
             )
             Spacer(modifier = Modifier.height(30.dp))
             Button(
                 modifier = Modifier.fillMaxWidth(1f),
-                onClick = onSubmitButtonClicked
+                onClick = OnSubmitBtnClick
             ){
                 Text(stringResource(id = R.string.submit))
             }
         }
     }
-
 }
