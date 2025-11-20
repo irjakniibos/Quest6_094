@@ -7,7 +7,9 @@
     <string name="nama_lengkap">NAMA LENGKAP</string>
     <string name="nama">NAMA LENGKAP</string>
     <string name="jenis_kelamin">JENIS KELAMIN</string>
+    <string name="gender">JENIS KELAMIN</string>
     <string name="alamat">ALAMAT</string>
     <string name="tampil">Tampilan Data</string>
     <string name="home">Form Isian</string>
+    <string name="detail">Data Siswa</string>
 </resources>
