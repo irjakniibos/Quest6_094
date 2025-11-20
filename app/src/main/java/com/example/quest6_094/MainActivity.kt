@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             Quest6_094Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) {
-                    DataApp(
+                    SiswaApp(
                         modifier = Modifier
                     )
                 }

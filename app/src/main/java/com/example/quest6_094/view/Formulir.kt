@@ -104,7 +104,7 @@ fun FormIsian(
                 color = Color.Red
             )
             OutlinedTextField(
-                value = "txtAlamat",
+                value = txtAlamat,
                 singleLine = true,
                 modifier = Modifier
                     .width(250.dp),
