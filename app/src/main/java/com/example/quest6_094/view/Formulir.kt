@@ -41,6 +41,13 @@ fun FormIsian(
 )
 {
     var txtNama by rememberSaveable { mutableStateOf("") }
+    var txtAlamat by rememberSaveable { mutableStateOf("") }
+    var txtGender by rememberSaveable { mutableStateOf("") }
+    var listData:MutableList<String> = mutableListOf(
+        txtNama,
+        txtAlamat,
+        txtGender)
+
 
     Scaffold(modifier = Modifier,
         {
@@ -57,14 +64,19 @@ fun FormIsian(
             horizontalAlignment = Alignment.CenterHorizontally)
         {
             OutlinedTextField(
-                value = "",
+                value = txtNama, //ganti
                 singleLine = true,
                 modifier = Modifier
                     .padding(top = 20.dp)
                     .width(250.dp),
                 label = { Text(text = "Nama Lengkap") },
-                onValueChange = {},
+                onValueChange = {
+                    txtNama = it //ganti
+                },
             )
+
+
+
             HorizontalDivider(modifier = Modifier
                 .padding(20.dp)
                 .width(250.dp), thickness = Thickness,color =
