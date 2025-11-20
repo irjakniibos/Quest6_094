@@ -22,6 +22,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,9 +35,13 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun FormIsian(
-    jenisK:List<String> = listOf("Laki-laki","Perempuan"),
-    OnSubmitBtnClick:() -> Unit,
-){
+    pilihanJK: List<String>,
+    onSubmitButtonClicked: (MutableList<String>) -> Unit,
+    modifier: Modifier = Modifier
+)
+{
+    var txtNama by rememberSaveable { mutableStateOf("") }
+
     Scaffold(modifier = Modifier,
         {
             TopAppBar(
@@ -62,7 +70,7 @@ fun FormIsian(
                 .width(250.dp), thickness = Thickness,color =
                 Color.Red)
             Row{
-                jenisK.forEach {
+                pilihanJK.forEach {
                         item->
                     Row(verticalAlignment = Alignment.CenterVertically){
                         RadioButton(
@@ -90,7 +98,7 @@ fun FormIsian(
             Spacer(modifier = Modifier.height(30.dp))
             Button(
                 modifier = Modifier.fillMaxWidth(1f),
-                onClick = OnSubmitBtnClick
+                onClick = onSubmitButtonClicked
             ){
                 Text(stringResource(id = R.string.submit))
             }
